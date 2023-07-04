@@ -22,8 +22,15 @@ func Run() error {
 		fmt.Println(err)
 		return err
 	}
+	defer app.Rmq.Conn.Close()
 
 	fmt.Println("Go RabbitMQ start")
+
+	err = app.Rmq.Publish("Hi")
+
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
